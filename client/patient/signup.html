@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Patient Registration | MediPass</title>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-teal-600 flex items-center justify-center text-white font-extrabold text-base shadow-md">
+          MP
+        </div>
+        <div>
+          <h1 class="font-extrabold text-lg tracking-tight text-[var(--text)]">Patient Sign-Up</h1>
+          <p class="text-xs text-[var(--text-muted)]">Create your MediPass account</p>
+        </div>
+      </div>
+      <button id="theme-btn" class="p-2 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)]">
+        <i data-lucide="moon" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Sign-up Form -->
+    <form id="signup-form" class="space-y-3.5 text-xs">
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Full Legal Name</label>
+        <input type="text" id="reg-name" placeholder="e.g. Ramesh Chandra" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none focus:border-teal-500" />
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Mobile Number (10 digits)</label>
+        <div class="flex rounded-xl border border-[var(--border)] bg-[var(--surface-2)] overflow-hidden">
+          <span class="px-3 py-2 text-xs font-semibold text-[var(--text-muted)] bg-[var(--border)]/20 border-r border-[var(--border)]">+91</span>
+          <input type="tel" id="reg-phone" placeholder="9876543210" maxlength="10" required class="flex-1 bg-transparent px-3 py-2 text-sm text-[var(--text)] outline-none" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block font-bold text-[var(--text)] mb-1">ABHA ID (Optional)</label>
+          <input type="text" id="reg-abha" placeholder="91-XXXX-XXXX-XXXX" class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none" />
+        </div>
+        <div>
+          <label class="block font-bold text-[var(--text)] mb-1">Language</label>
+          <select id="reg-lang" class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none">
+            <option value="en">English</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Emergency Contact Phone</label>
+        <input type="tel" id="reg-emergency" placeholder="+91 9876543299" class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none" />
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Quick Login PIN (4-6 digits, optional)</label>
+        <input type="password" id="reg-pin" placeholder="••••" maxlength="6" class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] text-center tracking-widest outline-none font-mono" />
+      </div>
+
+      <button type="submit" id="btn-submit-signup" class="w-full py-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md shadow-teal-600/30 transition">
+        Create Health Pass
+      </button>
+    </form>
+
+    <!-- Prominent "Continue as Guest" Button -->
+    <button type="button" class="btn-guest-patient w-full py-3 px-4 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 border-2 border-amber-500/40 text-amber-800 dark:text-amber-200 transition text-left flex items-center justify-between group">
+      <div>
+        <div class="font-bold text-xs flex items-center gap-1.5">
+          <span>👀</span>
+          <span>Continue as Guest</span>
+        </div>
+        <p class="text-[10px] text-[var(--text-muted)]">Explore with sample data, no sign-up</p>
+      </div>
+      <span class="text-xs font-bold group-hover:translate-x-1 transition-transform">&rarr;</span>
+    </button>
+
+    <p class="text-center text-xs text-[var(--text-muted)]">
+      Already registered? <a href="/patient/login.html" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Log in &rarr;</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { Api } from '/js/shared/api.js';
+    import { Toast } from '/js/shared/toast.js';
+    import { ThemeManager } from '/js/shared/theme.js';
+    import { Icons } from '/js/shared/icons.js';
+    import { PatientAuth } from '/js/patient/auth.js';
+
+    Icons.init();
+    PatientAuth.init();
+
+    // Autofill phone if passed in query param
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('phone')) {
+      const phoneInput = document.getElementById('reg-phone');
+      if (phoneInput) phoneInput.value = params.get('phone');
+    }
+
+    document.getElementById('signup-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name')?.value.trim();
+      const phone = document.getElementById('reg-phone')?.value.trim();
+      const abha_id = document.getElementById('reg-abha')?.value.trim();
+      const language_pref = document.getElementById('reg-lang')?.value;
+      const emergency_contact_phone = document.getElementById('reg-emergency')?.value.trim();
+      const pin = document.getElementById('reg-pin')?.value.trim();
+
+      try {
+        const res = await Api.post('/api/auth/patient/signup', {
+          name,
+          phone,
+          abha_id,
+          language_pref,
+          emergency_contact_phone,
+          pin
+        });
+
+        Api.setTokens({
+          accessToken: res.tokens.accessToken,
+          refreshToken: res.tokens.refreshToken,
+          isDoctor: false,
+          isGuest: false
+        });
+
+        Toast.success('Account created successfully!');
+        setTimeout(() => {
+          window.location.href = '/patient/app.html';
+        }, 500);
+      } catch (err) {
+        Toast.error(err.message || 'Registration failed.');
+      }
+    });
+
+    document.getElementById('theme-btn')?.addEventListener('click', () => {
+      ThemeManager.toggle();
+      Icons.init();
+    });
+  </script>
+</body>
+</html>

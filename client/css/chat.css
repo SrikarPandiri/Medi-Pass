@@ -1,0 +1,154 @@
+/**
+ * @file client/css/chat.css
+ * @description ChatGPT / Gemini-style AI Assistant styles: conversational bubbles,
+ * streaming cursor, conversation drawer, suggestion chips, and voice waveform.
+ */
+
+/* Assistant Avatar Sparkle */
+.ai-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--ai-gradient-start), var(--ai-gradient-end));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+  flex-shrink: 0;
+}
+
+/* Chat Messages */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1rem 1rem 7rem 1rem;
+  overflow-y: auto;
+}
+
+.chat-bubble-user {
+  margin-left: auto;
+  max-width: 82%;
+  background-color: var(--patient-accent);
+  color: #ffffff;
+  padding: 0.85rem 1.15rem;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.chat-bubble-assistant {
+  margin-right: auto;
+  max-width: 90%;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 1rem 1.25rem;
+  border-radius: 0.25rem 1.25rem 1.25rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.chat-bubble-assistant pre, .chat-bubble-assistant code {
+  background-color: var(--surface-2);
+  border-radius: 0.35rem;
+  padding: 0.15rem 0.4rem;
+  font-family: monospace;
+  font-size: 0.88rem;
+}
+
+/* Streaming Blinking Cursor */
+.streaming-cursor::after {
+  content: '▋';
+  color: var(--patient-accent);
+  animation: blink 0.9s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Voice Waveform animation */
+.voice-waveform {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 24px;
+}
+
+.waveform-bar {
+  width: 3.5px;
+  background-color: var(--patient-accent);
+  border-radius: 9999px;
+  animation: wave 1s ease-in-out infinite;
+}
+
+.waveform-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+.waveform-bar:nth-child(2) { height: 16px; animation-delay: 0.2s; }
+.waveform-bar:nth-child(3) { height: 22px; animation-delay: 0.3s; }
+.waveform-bar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
+.waveform-bar:nth-child(5) { height: 8px; animation-delay: 0.5s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* Conversation Drawer */
+.chat-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 82%;
+  max-width: 320px;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  z-index: 90;
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+}
+
+.chat-drawer.open {
+  transform: translateX(0);
+}
+
+.chat-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 85;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.chat-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Suggestion Chips */
+.suggestion-chip {
+  padding: 0.5rem 0.9rem;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.suggestion-chip:hover {
+  background: var(--surface-2);
+  border-color: var(--patient-accent);
+}

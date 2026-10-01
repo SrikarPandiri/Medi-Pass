@@ -1,0 +1,706 @@
+{
+  "users": [
+    {
+      "user_id": "p-lakshmi-001",
+      "name": "Lakshmi Devi",
+      "role": "patient",
+      "phone_number": "9876543210",
+      "email": "lakshmi.devi@example.com",
+      "abha_id": "91-2345-6789-0123",
+      "avatar_url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150",
+      "language_pref": "te",
+      "emergency_contact_phone": "+919876543299",
+      "ai_consent": true,
+      "is_guest": false,
+      "created_at": "2026-07-03T04:13:18.341Z"
+    },
+    {
+      "user_id": "p-rahul-002",
+      "name": "Rahul Sharma",
+      "role": "patient",
+      "phone_number": "9123456780",
+      "email": "rahul.sharma@example.com",
+      "abha_id": "91-8899-7766-5544",
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "language_pref": "en",
+      "emergency_contact_phone": "+919123456799",
+      "ai_consent": true,
+      "is_guest": false,
+      "created_at": "2026-08-02T04:13:18.342Z"
+    },
+    {
+      "user_id": "d-anita-101",
+      "name": "Dr. Anita Rao",
+      "role": "doctor",
+      "phone_number": "9988776655",
+      "email": "dr.anita@sunriseclinic.in",
+      "abha_id": "DOC-TS-443322",
+      "avatar_url": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150",
+      "language_pref": "en",
+      "emergency_contact_phone": null,
+      "ai_consent": false,
+      "is_guest": false,
+      "created_at": "2026-04-04T04:13:18.342Z"
+    },
+    {
+      "user_id": "d-ravi-102",
+      "name": "Dr. Ravi Kumar",
+      "role": "doctor",
+      "phone_number": "9977553311",
+      "email": "dr.ravi@districthospital.gov.in",
+      "abha_id": "DOC-AP-998811",
+      "avatar_url": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150",
+      "language_pref": "te",
+      "emergency_contact_phone": null,
+      "ai_consent": false,
+      "is_guest": false,
+      "created_at": "2026-02-03T04:13:18.342Z"
+    }
+  ],
+  "patientCredentials": [
+    {
+      "user_id": "p-lakshmi-001",
+      "pin_hash": "$2a$10$HqBsxctrT0nlVX0iWqLUE.hEiMUmEYiTjb.IhEk8EX4/iHf3342Ke",
+      "failed_attempts": 0,
+      "locked_until": "2026-10-01T04:44:43.623Z",
+      "last_login_at": "2026-10-01T04:13:18.342Z"
+    },
+    {
+      "user_id": "p-rahul-002",
+      "pin_hash": "$2a$10$m2fvZLvEtFjogbnB8GyZKOzCTwlqod33qIamseV9R3y3SEZ9iXbYK",
+      "failed_attempts": 0,
+      "locked_until": null,
+      "last_login_at": "2026-10-01T04:13:18.342Z"
+    }
+  ],
+  "doctorCredentials": [
+    {
+      "user_id": "d-anita-101",
+      "license_id": "TSMC-12345",
+      "password_hash": "$2a$10$kPCwJmunURgiU.XEeEtnZuPT1XnzxS017bRbDn2sQQOjP7RN0TQU2",
+      "clinic_name": "Sunrise Clinic, Banjara Hills",
+      "clinic_city": "Hyderabad",
+      "specialization": "General Medicine & Diabetology",
+      "verification_status": "verified",
+      "failed_attempts": 0,
+      "locked_until": null,
+      "last_login_at": "2026-10-01T04:13:18.342Z"
+    },
+    {
+      "user_id": "d-ravi-102",
+      "license_id": "APMC-67890",
+      "password_hash": "$2a$10$6Euf5EcxUF6SRwnH2dElKOKLZwzRL8/UTPiM7EbAsQq64PkPMds5.",
+      "clinic_name": "District General Hospital",
+      "clinic_city": "Guntur",
+      "specialization": "Emergency Medicine & Critical Care",
+      "verification_status": "verified",
+      "failed_attempts": 0,
+      "locked_until": null,
+      "last_login_at": "2026-10-01T04:13:18.342Z"
+    }
+  ],
+  "authSessions": [],
+  "medicalRecords": [
+    {
+      "record_id": "rec-lak-001",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "BloodGroup",
+      "title": "Blood Group Confirmation",
+      "content": {
+        "blood_group": "O+",
+        "rh_factor": "Positive",
+        "verified_by": "State Blood Transfusion Council"
+      },
+      "created_at": "2026-06-03T04:13:18.342Z",
+      "clinic_name": "District Hospital, Guntur",
+      "doctor_id": "d-ravi-102",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-002",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Allergy",
+      "title": "Severe Penicillin Allergy",
+      "content": {
+        "allergen": "Penicillin & Beta-Lactam Antibiotics",
+        "severity": "Severe / Anaphylaxis",
+        "reaction": "Generalized urticaria, bronchospasm, facial angioedema",
+        "notes": "Strictly avoid Amoxicillin, Ampicillin, Piperacillin, and first-gen cephalosporins."
+      },
+      "created_at": "2026-07-03T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-003",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Diagnosis",
+      "title": "Type 2 Diabetes Mellitus",
+      "content": {
+        "code": "ICD-10 E11",
+        "description": "Type 2 diabetes mellitus without acute complications. Managed with oral hypoglycemic agents.",
+        "onset": "2021",
+        "status": "Active"
+      },
+      "created_at": "2026-07-18T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-004",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Diagnosis",
+      "title": "Essential Hypertension (Stage 1)",
+      "content": {
+        "code": "ICD-10 I10",
+        "description": "Essential primary hypertension. Well tolerated on monotherapy.",
+        "status": "Active"
+      },
+      "created_at": "2026-08-02T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-005",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Prescription",
+      "title": "Metformin 500mg Tablets",
+      "content": {
+        "medication_name": "Metformin Hydrochloride",
+        "dosage": "500 mg",
+        "frequency": "Twice daily (after breakfast & dinner)",
+        "duration": "90 days",
+        "instructions": "Take strictly with or after meals to minimize stomach upset. Do not skip doses.",
+        "prescribed_date": "2026-09-17T04:13:18.342Z"
+      },
+      "created_at": "2026-09-17T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-006",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Prescription",
+      "title": "Amlodipine 5mg Tablets",
+      "content": {
+        "medication_name": "Amlodipine Besylate",
+        "dosage": "5 mg",
+        "frequency": "Once daily (morning)",
+        "duration": "90 days",
+        "instructions": "Take in the morning with water. Monitor for mild ankle swelling.",
+        "prescribed_date": "2026-09-17T04:13:18.342Z"
+      },
+      "created_at": "2026-09-17T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-007",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Lab Report",
+      "title": "Glycated Hemoglobin (HbA1c)",
+      "content": {
+        "test_name": "Glycated Hemoglobin (HbA1c)",
+        "value": 7.8,
+        "unit": "%",
+        "reference_range": "< 5.7% (Normal), 5.7-6.4% (Prediabetic), >= 6.5% (Diabetic)",
+        "status": "High",
+        "clinical_note": "Moderately elevated. Diabetic glycemic control requires continued dietary adherence."
+      },
+      "created_at": "2026-09-19T04:13:18.342Z",
+      "clinic_name": "Apollo Diagnostics Centre, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-008",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Lab Report",
+      "title": "Fasting Plasma Glucose (FPG)",
+      "content": {
+        "test_name": "Fasting Blood Sugar",
+        "value": 148,
+        "unit": "mg/dL",
+        "reference_range": "70 - 99 mg/dL (Normal), 100 - 125 mg/dL (Impaired)",
+        "status": "High",
+        "clinical_note": "Fasting level is elevated above target baseline of 130 mg/dL."
+      },
+      "created_at": "2026-09-19T04:13:18.342Z",
+      "clinic_name": "Apollo Diagnostics Centre, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-009",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Lab Report",
+      "title": "Comprehensive Lipid Profile",
+      "content": {
+        "test_name": "Lipid Panel",
+        "total_cholesterol": {
+          "value": 215,
+          "unit": "mg/dL",
+          "ref": "< 200 mg/dL (Desirable)",
+          "status": "Borderline High"
+        },
+        "ldl_cholesterol": {
+          "value": 135,
+          "unit": "mg/dL",
+          "ref": "< 100 mg/dL (Optimal)",
+          "status": "Elevated"
+        },
+        "hdl_cholesterol": {
+          "value": 48,
+          "unit": "mg/dL",
+          "ref": "> 40 mg/dL (Normal)",
+          "status": "Normal"
+        },
+        "triglycerides": {
+          "value": 160,
+          "unit": "mg/dL",
+          "ref": "< 150 mg/dL (Normal)",
+          "status": "Borderline"
+        },
+        "status": "Borderline High"
+      },
+      "created_at": "2026-09-19T04:13:18.342Z",
+      "clinic_name": "Apollo Diagnostics Centre, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-010",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Lab Report",
+      "title": "Kidney Function Test (Serum Creatinine)",
+      "content": {
+        "test_name": "Serum Creatinine",
+        "value": 0.9,
+        "unit": "mg/dL",
+        "reference_range": "0.6 - 1.1 mg/dL",
+        "status": "Normal",
+        "clinical_note": "Renal clearance intact. Safe for continuing Metformin."
+      },
+      "created_at": "2026-09-19T04:13:18.342Z",
+      "clinic_name": "Apollo Diagnostics Centre, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-011",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Vitals",
+      "title": "Clinical Vitals Examination",
+      "content": {
+        "blood_pressure": "138/86 mmHg",
+        "pulse": "74 bpm",
+        "spo2": "98%",
+        "temperature": "98.4 F",
+        "notes": "BP is mildly elevated; heart rhythm regular."
+      },
+      "created_at": "2026-09-26T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-lak-012",
+      "patient_id": "p-lakshmi-001",
+      "record_type": "Vitals",
+      "title": "Anthropometric Measurements",
+      "content": {
+        "weight": "64 kg",
+        "height": "160 cm",
+        "bmi": "25.0 kg/m²",
+        "status": "Borderline Overweight"
+      },
+      "created_at": "2026-09-26T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-rah-001",
+      "patient_id": "p-rahul-002",
+      "record_type": "BloodGroup",
+      "title": "Blood Group Confirmation",
+      "content": {
+        "blood_group": "B+",
+        "rh_factor": "Positive"
+      },
+      "created_at": "2026-08-12T04:13:18.342Z",
+      "clinic_name": "District General Hospital",
+      "doctor_id": "d-ravi-102",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-rah-002",
+      "patient_id": "p-rahul-002",
+      "record_type": "Diagnosis",
+      "title": "Bronchial Asthma (Seasonal/Extrinsic)",
+      "content": {
+        "code": "ICD-10 J45",
+        "description": "Intermittent seasonal exacerbations triggered by pollen and dust."
+      },
+      "created_at": "2026-08-22T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-rah-003",
+      "patient_id": "p-rahul-002",
+      "record_type": "Prescription",
+      "title": "Budesonide + Formoterol Inhaler",
+      "content": {
+        "medication_name": "Budecort-F 200 Inhaler",
+        "dosage": "1 puff",
+        "frequency": "Twice daily & as needed for wheezing",
+        "duration": "60 days",
+        "instructions": "Rinse mouth thoroughly with water after inhalation."
+      },
+      "created_at": "2026-09-11T04:13:18.342Z",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    },
+    {
+      "record_id": "rec-rah-004",
+      "patient_id": "p-rahul-002",
+      "record_type": "Lab Report",
+      "title": "Complete Blood Count (CBC)",
+      "content": {
+        "test_name": "CBC Hemogram",
+        "hemoglobin": {
+          "value": 15.2,
+          "unit": "g/dL",
+          "status": "Normal"
+        },
+        "wbc_count": {
+          "value": 7400,
+          "unit": "/cumm",
+          "status": "Normal"
+        },
+        "eosinophils": {
+          "value": 6.2,
+          "unit": "%",
+          "status": "Mildly Elevated (Allergic)"
+        },
+        "status": "Normal"
+      },
+      "created_at": "2026-09-11T04:13:18.342Z",
+      "clinic_name": "City Care Diagnostics",
+      "doctor_id": "d-anita-101",
+      "sync_status": "SYNCED"
+    }
+  ],
+  "consentSessions": [
+    {
+      "session_id": "a9cec251-f5d6-4029-bb72-9d00041c9e97",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "qr_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoicC1sYWtzaG1pLTAwMSIsInNlc3Npb25faWQiOiJhOWNlYzI1MS1mNWQ2LTQwMjktYmI3Mi05ZDAwMDQxYzllOTciLCJzY29wZXMiOlsiYWxsZXJnaWVzIiwicHJlc2NyaXB0aW9ucyJdLCJqdGkiOiIyNGMzMGM5Ni03OGYwLTQxMzMtODI4Yi05MTk0MTE2ZjQ2MjciLCJpYXQiOjE3OTA4Mjg5MjAsImV4cCI6MTc5MDgyODk2NSwiYXVkIjoibWVkaXBhc3MtY29uc2VudCJ9.zkpIlEiAPn6fI6qfQjoWxXkS9g514mDmOUKh3Z65lJI",
+      "jti": "24c30c96-78f0-4133-828b-9194116f4627",
+      "status": "consumed",
+      "scopes": [
+        "allergies",
+        "prescriptions"
+      ],
+      "expires_at": "2026-10-01T04:29:25.068Z",
+      "created_at": "2026-10-01T04:28:40.068Z",
+      "consumed_at": "2026-10-01T04:28:40.071Z"
+    },
+    {
+      "session_id": "5ecdc632-908b-4693-87e2-ab25abceebb3",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "qr_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoicC1sYWtzaG1pLTAwMSIsInNlc3Npb25faWQiOiI1ZWNkYzYzMi05MDhiLTQ2OTMtODdlMi1hYjI1YWJjZWViYjMiLCJzY29wZXMiOlsiYWxsZXJnaWVzIiwicHJlc2NyaXB0aW9ucyIsImxhYl9yZXBvcnRzIiwidml0YWxzIl0sImp0aSI6ImMwN2UyNzhiLWYyMmUtNDI1ZS1iOGExLTZiZTNhMDM4MTQwYyIsImlhdCI6MTc5MDgyODkyMCwiZXhwIjoxNzkwODI4OTY1LCJhdWQiOiJtZWRpcGFzcy1jb25zZW50In0.flWltygXleNQxwKUSFEv4FGMrq7gnhkW3iXLy0ClhVY",
+      "jti": "c07e278b-f22e-425e-b8a1-6be3a038140c",
+      "status": "revoked",
+      "scopes": [
+        "allergies",
+        "prescriptions",
+        "lab_reports",
+        "vitals"
+      ],
+      "expires_at": "2026-10-01T04:29:25.077Z",
+      "created_at": "2026-10-01T04:28:40.077Z",
+      "revoked_at": "2026-10-01T04:28:40.078Z"
+    },
+    {
+      "session_id": "652cce03-1578-47dd-b19f-fddd6bbb52a8",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "qr_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoicC1sYWtzaG1pLTAwMSIsInNlc3Npb25faWQiOiI2NTJjY2UwMy0xNTc4LTQ3ZGQtYjE5Zi1mZGRkNmJiYjUyYTgiLCJzY29wZXMiOlsiYWxsZXJnaWVzIiwicHJlc2NyaXB0aW9ucyJdLCJqdGkiOiIwMTdjZTk4Yi0wYzk3LTRlMWYtYWUzNy02YzIzMWFlODc3ZTgiLCJpYXQiOjE3OTA4Mjg5ODMsImV4cCI6MTc5MDgyOTAyOCwiYXVkIjoibWVkaXBhc3MtY29uc2VudCJ9.r82yHvpQqY57M0gxkPfgkK9_gaRSa2lwJuWfDJbqrF8",
+      "jti": "017ce98b-0c97-4e1f-ae37-6c231ae877e8",
+      "status": "consumed",
+      "scopes": [
+        "allergies",
+        "prescriptions"
+      ],
+      "expires_at": "2026-10-01T04:30:28.127Z",
+      "created_at": "2026-10-01T04:29:43.127Z",
+      "consumed_at": "2026-10-01T04:29:43.130Z"
+    },
+    {
+      "session_id": "72ab8aeb-036c-4551-a55e-1ee03bb33a69",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "qr_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoicC1sYWtzaG1pLTAwMSIsInNlc3Npb25faWQiOiI3MmFiOGFlYi0wMzZjLTQ1NTEtYTU1ZS0xZWUwM2JiMzNhNjkiLCJzY29wZXMiOlsiYWxsZXJnaWVzIiwicHJlc2NyaXB0aW9ucyIsImxhYl9yZXBvcnRzIiwidml0YWxzIl0sImp0aSI6IjhhNjBhMDcyLTE1MmQtNDlkNi1hNzVlLTM5Zjk3NmQwNjU5NSIsImlhdCI6MTc5MDgyODk4MywiZXhwIjoxNzkwODI5MDI4LCJhdWQiOiJtZWRpcGFzcy1jb25zZW50In0.ICWdulxtsgmfKJR8UYc9-fKyGHNwkZQc-MWXuCvWwMM",
+      "jti": "8a60a072-152d-49d6-a75e-39f976d06595",
+      "status": "revoked",
+      "scopes": [
+        "allergies",
+        "prescriptions",
+        "lab_reports",
+        "vitals"
+      ],
+      "expires_at": "2026-10-01T04:30:28.135Z",
+      "created_at": "2026-10-01T04:29:43.135Z",
+      "revoked_at": "2026-10-01T04:29:43.136Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "log_id": "audit-001",
+      "session_id": null,
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "clinic_name": "System Portal",
+      "action": "PATIENT_LOGIN",
+      "timestamp": "2026-09-01T04:13:18.342Z",
+      "metadata": {
+        "method": "OTP",
+        "device": "Mobile Browser"
+      },
+      "prev_hash": null,
+      "current_hash": "c83f9801a2dbce4472c9165b40cf392a83e020272faecf9119c629e472621101"
+    },
+    {
+      "log_id": "audit-002",
+      "session_id": "sess-init-01",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "action": "QR_SCANNED",
+      "timestamp": "2026-09-17T04:13:18.342Z",
+      "metadata": {
+        "scopes": [
+          "allergies",
+          "prescriptions",
+          "lab_reports"
+        ]
+      },
+      "prev_hash": "c83f9801a2dbce4472c9165b40cf392a83e020272faecf9119c629e472621101",
+      "current_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "log_id": "audit-003",
+      "session_id": "sess-init-01",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "action": "RECORD_VIEWED",
+      "timestamp": "2026-09-17T04:13:22.342Z",
+      "metadata": {
+        "record_count": 8,
+        "load_time_ms": 420
+      },
+      "prev_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_hash": "1b4f0e985197199f8da09d573d377c85ff8677c32014a683fe672ec00e470ee3"
+    },
+    {
+      "log_id": "audit-004",
+      "session_id": "sess-init-01",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "Sunrise Clinic, Hyderabad",
+      "action": "RECORD_CREATED",
+      "timestamp": "2026-09-17T04:15:18.342Z",
+      "metadata": {
+        "record_type": "Prescription",
+        "title": "Metformin 500mg Tablets"
+      },
+      "prev_hash": "1b4f0e985197199f8da09d573d377c85ff8677c32014a683fe672ec00e470ee3",
+      "current_hash": "7c6a527232e0e0a137ce51a8f8458ca3f80961f0094770177b9ab1d8ee1c3a6e"
+    },
+    {
+      "log_id": "audit-005",
+      "session_id": null,
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "clinic_name": "MediPass Assistant",
+      "action": "AI_CONSENT_GRANTED",
+      "timestamp": "2026-09-24T04:13:18.342Z",
+      "metadata": {
+        "user_action": "ACCEPTED_IN_APP"
+      },
+      "prev_hash": "7c6a527232e0e0a137ce51a8f8458ca3f80961f0094770177b9ab1d8ee1c3a6e",
+      "current_hash": "a9b2c3d4e5f60718293a4b5c6d7e8f901a2b3c4d5e6f708192a3b4c5d6e7f809"
+    },
+    {
+      "log_id": "audit-006",
+      "session_id": null,
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "clinic_name": "MediPass Assistant",
+      "action": "AI_ACCESSED_RECORDS",
+      "timestamp": "2026-09-29T04:13:18.342Z",
+      "metadata": {
+        "record_ids": [
+          "rec-lak-005",
+          "rec-lak-007"
+        ],
+        "topic": "HbA1c & Medication Review"
+      },
+      "prev_hash": "a9b2c3d4e5f60718293a4b5c6d7e8f901a2b3c4d5e6f708192a3b4c5d6e7f809",
+      "current_hash": "ff00aa112233445566778899aabbccddeeff00112233445566778899aabbccdd"
+    },
+    {
+      "log_id": "89b3ce28-4b30-4d26-8077-6de640433431",
+      "session_id": "a9cec251-f5d6-4029-bb72-9d00041c9e97",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "System",
+      "action": "QR_SCANNED",
+      "timestamp": "2026-10-01T04:28:40.072Z",
+      "metadata": {
+        "scopes": [
+          "allergies",
+          "prescriptions"
+        ],
+        "record_count": 4,
+        "load_time_ms": 1
+      },
+      "prev_hash": "ff00aa112233445566778899aabbccddeeff00112233445566778899aabbccdd",
+      "current_hash": "5ef06ad488e075158ebaadad216628797b35f51141a381bf3ef2e78090ea3999"
+    },
+    {
+      "log_id": "55e464e1-4797-44e0-ae40-43f2332f23f4",
+      "session_id": "a9cec251-f5d6-4029-bb72-9d00041c9e97",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "System",
+      "action": "TOKEN_REPLAY_BLOCKED",
+      "timestamp": "2026-10-01T04:28:40.075Z",
+      "metadata": {
+        "jti": "24c30c96-78f0-4133-828b-9194116f4627",
+        "attempt_time": "2026-10-01T04:28:40.075Z"
+      },
+      "prev_hash": "5ef06ad488e075158ebaadad216628797b35f51141a381bf3ef2e78090ea3999",
+      "current_hash": "872025a6e52c6c9bc60cae90eeb0ecb6e393e12967bcffdfb8b2692f69772125"
+    },
+    {
+      "log_id": "4fed49e2-bf82-4c1a-8280-e132f4da6e3f",
+      "session_id": "5ecdc632-908b-4693-87e2-ab25abceebb3",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "clinic_name": "System",
+      "action": "ACCESS_REVOKED",
+      "timestamp": "2026-10-01T04:28:40.079Z",
+      "metadata": {
+        "reason": "PATIENT_KILL_SWITCH"
+      },
+      "prev_hash": "872025a6e52c6c9bc60cae90eeb0ecb6e393e12967bcffdfb8b2692f69772125",
+      "current_hash": "aea9ff4ab2ef8cde51371c93d2e0e0a8033cad29e5b6dba93d2a68c0a3e8ac38"
+    },
+    {
+      "log_id": "2e725edd-9ebc-4530-ba53-23ffc9353680",
+      "session_id": "652cce03-1578-47dd-b19f-fddd6bbb52a8",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "System",
+      "action": "QR_SCANNED",
+      "timestamp": "2026-10-01T04:29:43.132Z",
+      "metadata": {
+        "scopes": [
+          "allergies",
+          "prescriptions"
+        ],
+        "record_count": 4,
+        "load_time_ms": 2
+      },
+      "prev_hash": "aea9ff4ab2ef8cde51371c93d2e0e0a8033cad29e5b6dba93d2a68c0a3e8ac38",
+      "current_hash": "806c846a5c2f246c5ad6e938b7144962caf155d0cc0ce3e67f31a82c1933d9f6"
+    },
+    {
+      "log_id": "28273d7e-2a74-4edb-b399-be0a6a91dfb7",
+      "session_id": "652cce03-1578-47dd-b19f-fddd6bbb52a8",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": "d-anita-101",
+      "clinic_name": "System",
+      "action": "TOKEN_REPLAY_BLOCKED",
+      "timestamp": "2026-10-01T04:29:43.134Z",
+      "metadata": {
+        "jti": "017ce98b-0c97-4e1f-ae37-6c231ae877e8",
+        "attempt_time": "2026-10-01T04:29:43.134Z"
+      },
+      "prev_hash": "806c846a5c2f246c5ad6e938b7144962caf155d0cc0ce3e67f31a82c1933d9f6",
+      "current_hash": "142db9269d5a34f16d134d5618acbdb0c395d03bac5eb395c8bd4484ff7f6887"
+    },
+    {
+      "log_id": "1900a062-5c27-4183-af5e-69e43f0c80e1",
+      "session_id": "72ab8aeb-036c-4551-a55e-1ee03bb33a69",
+      "patient_id": "p-lakshmi-001",
+      "doctor_id": null,
+      "clinic_name": "System",
+      "action": "ACCESS_REVOKED",
+      "timestamp": "2026-10-01T04:29:43.137Z",
+      "metadata": {
+        "reason": "PATIENT_KILL_SWITCH"
+      },
+      "prev_hash": "142db9269d5a34f16d134d5618acbdb0c395d03bac5eb395c8bd4484ff7f6887",
+      "current_hash": "bfcc74b5e72a90bc6021c4bb53080bd4618f6da0f713d0462685a8175ac3bb58"
+    }
+  ],
+  "emergencySessions": [],
+  "chatThreads": [
+    {
+      "thread_id": "thread-lak-001",
+      "patient_id": "p-lakshmi-001",
+      "title": "Medication and Sugar Review",
+      "language": "te",
+      "created_at": "2026-09-29T04:13:18.342Z",
+      "updated_at": "2026-09-29T04:13:18.342Z",
+      "archived": false
+    }
+  ],
+  "chatMessages": [
+    {
+      "message_id": "msg-001",
+      "thread_id": "thread-lak-001",
+      "role": "user",
+      "content": "నా మధుమేహం మరియు మందుల గురించి వివరాలు చెప్పండి",
+      "input_mode": "text",
+      "language": "te",
+      "sources": [],
+      "flags": [],
+      "feedback": null,
+      "created_at": "2026-09-29T04:13:18.342Z"
+    },
+    {
+      "message_id": "msg-002",
+      "thread_id": "thread-lak-001",
+      "role": "assistant",
+      "content": "నమస్కారం లక్ష్మి గారు! మీ ఆరోగ్య రికార్డులను పరిశీలించాను:\n\n1. **షుగర్ వివరాలు (HbA1c):** మీ తాజా HbA1c స్థాయి **7.8%** గా ఉంది (సాధారణంగా ఉండాల్సిన స్థాయి 5.7% కంటే తక్కువ). ఇది మధుమేహాన్ని సూచిస్తుంది.\n2. **మందులు:** మీకు డాక్టర్ అనిత గారు **Metformin 500mg** మందును ఉదయం మరియు రాత్రి భోజనం తర్వాత తీసుకోవాలని సూచించారు.\n3. **ముఖ్యమైన హెచ్చరిక:** మీకు **పెన్సిలిన్ (Penicillin)** మందులకు తీవ్రమైన అలర్జీ ఉంది. డాక్టర్లను సంప్రదించినప్పుడు ఈ విషయాన్ని తప్పక తెలియజేయండి.\n\nఏదైనా అసౌకర్యం అనిపిస్తే వెంటనే మీ వైద్యులను సంప్రదించండి.",
+      "input_mode": "text",
+      "language": "te",
+      "sources": [
+        "rec-lak-002",
+        "rec-lak-005",
+        "rec-lak-007"
+      ],
+      "flags": [
+        "allergy_warning"
+      ],
+      "feedback": "up",
+      "created_at": "2026-09-29T04:13:21.342Z"
+    }
+  ],
+  "guestSessions": []
+}

@@ -1,0 +1,99 @@
+/**
+ * @file client/css/doctor.css
+ * @description Doctor App layout and component styles: camera scanner frame,
+ * access countdown timers, YouTube-style thumbnails, and emergency red indicators.
+ */
+
+.doctor-accent-bg {
+  background-color: var(--doctor-accent);
+}
+
+.doctor-accent-text {
+  color: var(--doctor-accent);
+}
+
+/* Raised Center Scan Button */
+.doctor-raised-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--doctor-accent), var(--doctor-accent-dark));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px -2px rgba(37, 99, 235, 0.45);
+  transform: translateY(-16px);
+  border: 4px solid var(--surface);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.doctor-raised-btn:active {
+  transform: translateY(-14px) scale(0.95);
+}
+
+/* Scanner Viewport with Laser Beam */
+.scanner-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: #000000;
+  margin: 0 auto;
+  border: 2px solid var(--border);
+}
+
+.scanner-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #38bdf8, var(--doctor-accent), transparent);
+  box-shadow: 0 0 12px #38bdf8;
+  animation: laserScan 2s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes laserScan {
+  0% { top: 5%; opacity: 0.8; }
+  50% { top: 92%; opacity: 1; }
+  100% { top: 5%; opacity: 0.8; }
+}
+
+/* Scanner Corner Guides */
+.scanner-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: #38bdf8;
+  z-index: 5;
+}
+.scanner-corner-tl { top: 16px; left: 16px; border-top: 3.5px solid; border-left: 3.5px solid; }
+.scanner-corner-tr { top: 16px; right: 16px; border-top: 3.5px solid; border-right: 3.5px solid; }
+.scanner-corner-bl { bottom: 16px; left: 16px; border-bottom: 3.5px solid; border-left: 3.5px solid; }
+.scanner-corner-br { bottom: 16px; right: 16px; border-bottom: 3.5px solid; border-right: 3.5px solid; }
+
+/* Access Active / Revoked Indicator Pill */
+.access-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.access-active {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.access-revoked {
+  background: var(--danger-light);
+  color: var(--danger);
+  animation: pulseGlow 1s infinite;
+}

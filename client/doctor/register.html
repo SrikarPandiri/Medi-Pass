@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Doctor Registration | MediPass</title>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-base shadow-md">
+          Rx
+        </div>
+        <div>
+          <h1 class="font-extrabold text-lg tracking-tight text-[var(--text)]">Doctor Registration</h1>
+          <p class="text-xs text-[var(--text-muted)]">Verified Clinical Access</p>
+        </div>
+      </div>
+      <button id="theme-btn" class="p-2 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)]">
+        <i data-lucide="moon" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Registration Form -->
+    <form id="doc-register-form" class="space-y-3 text-xs">
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Doctor Full Name</label>
+        <input type="text" id="doc-name" placeholder="Dr. Suresh Reddy" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">State / National Medical Council License ID</label>
+        <input type="text" id="doc-license" placeholder="e.g. TSMC-98765" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] font-mono uppercase outline-none focus:border-blue-500" />
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block font-bold text-[var(--text)] mb-1">Clinic / Hospital</label>
+          <input type="text" id="doc-clinic" placeholder="City Health Clinic" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none" />
+        </div>
+        <div>
+          <label class="block font-bold text-[var(--text)] mb-1">City</label>
+          <input type="text" id="doc-city" placeholder="Hyderabad" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Specialization</label>
+        <input type="text" id="doc-spec" placeholder="General Practice & Family Medicine" class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none" />
+      </div>
+
+      <div>
+        <label class="block font-bold text-[var(--text)] mb-1">Password</label>
+        <input type="password" id="doc-password" placeholder="••••••••" required class="w-full p-2.5 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] outline-none focus:border-blue-500" />
+      </div>
+
+      <button type="submit" id="btn-submit-doc-reg" class="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/30 transition">
+        Register Clinical Terminal
+      </button>
+    </form>
+
+    <!-- Prominent "Continue as Guest Doctor" Button -->
+    <button type="button" class="btn-guest-doctor w-full py-3 px-4 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border-2 border-blue-500/30 text-blue-800 dark:text-blue-200 transition text-left flex items-center justify-between group">
+      <div>
+        <div class="font-bold text-xs flex items-center gap-1.5">
+          <span>🩺</span>
+          <span>Continue as Guest Doctor</span>
+        </div>
+        <p class="text-[10px] text-[var(--text-muted)]">Explore clinic terminal with pre-seeded demo sandbox</p>
+      </div>
+      <span class="text-xs font-bold group-hover:translate-x-1 transition-transform">&rarr;</span>
+    </button>
+
+    <p class="text-center text-xs text-[var(--text-muted)]">
+      Already registered? <a href="/doctor/login.html" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Doctor Login &rarr;</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { Api } from '/js/shared/api.js';
+    import { Toast } from '/js/shared/toast.js';
+    import { ThemeManager } from '/js/shared/theme.js';
+    import { Icons } from '/js/shared/icons.js';
+    import { DoctorAuth } from '/js/doctor/auth.js';
+
+    Icons.init();
+    DoctorAuth.init();
+
+    document.getElementById('doc-register-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('doc-name')?.value.trim();
+      const license_id = document.getElementById('doc-license')?.value.trim();
+      const clinic_name = document.getElementById('doc-clinic')?.value.trim();
+      const clinic_city = document.getElementById('doc-city')?.value.trim();
+      const specialization = document.getElementById('doc-spec')?.value.trim();
+      const password = document.getElementById('doc-password')?.value;
+
+      try {
+        const res = await Api.post('/api/auth/doctor/register', {
+          name,
+          license_id,
+          clinic_name,
+          clinic_city,
+          specialization,
+          password
+        });
+
+        Api.setTokens({
+          accessToken: res.tokens.accessToken,
+          refreshToken: res.tokens.refreshToken,
+          isDoctor: true,
+          isGuest: false
+        });
+
+        Toast.success('Doctor account verified and created!');
+        setTimeout(() => {
+          window.location.href = '/doctor/app.html';
+        }, 500);
+      } catch (err) {
+        Toast.error(err.message || 'Registration failed.');
+      }
+    });
+
+    document.getElementById('theme-btn')?.addEventListener('click', () => {
+      ThemeManager.toggle();
+      Icons.init();
+    });
+  </script>
+</body>
+</html>

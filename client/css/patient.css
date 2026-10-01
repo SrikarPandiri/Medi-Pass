@@ -1,0 +1,126 @@
+/**
+ * @file client/css/patient.css
+ * @description Patient App layout and component styles: stories carousel,
+ * health snapshot vitals cards, raised center QR tab, and feed styling.
+ */
+
+.patient-accent-bg {
+  background-color: var(--patient-accent);
+}
+
+.patient-accent-text {
+  color: var(--patient-accent);
+}
+
+/* Instagram-style Story Rings */
+.story-ring-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.story-ring-unseen {
+  padding: 2.5px;
+  border-radius: 9999px;
+  background: linear-gradient(45deg, var(--patient-accent), #38bdf8, #a855f7);
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+  transition: transform var(--transition-fast);
+}
+
+.story-ring-unseen:hover {
+  transform: scale(1.05);
+}
+
+.story-ring-seen {
+  padding: 2.5px;
+  border-radius: 9999px;
+  background: var(--border-subtle);
+}
+
+.story-avatar-inner {
+  width: 58px;
+  height: 58px;
+  border-radius: 9999px;
+  border: 2px solid var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+
+/* Raised Center Tab Button */
+.raised-center-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--patient-accent), var(--patient-accent-dark));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px -2px rgba(13, 148, 136, 0.45);
+  transform: translateY(-16px);
+  border: 4px solid var(--surface);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.raised-center-btn:active {
+  transform: translateY(-14px) scale(0.95);
+  box-shadow: 0 4px 10px -2px rgba(13, 148, 136, 0.4);
+}
+
+/* Health Snapshot Sparkline cards */
+.snapshot-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.snapshot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Story Viewer Overlay */
+.story-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  color: #ffffff;
+}
+
+.story-progress-bar-container {
+  display: flex;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.story-progress-segment {
+  height: 3px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.story-progress-fill {
+  height: 100%;
+  background: #ffffff;
+  width: 0%;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MediPass | Dynamic QR Health Records & AI Point-of-Care</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
+  <meta name="description" content="Patient-Held, Consent-Driven Point-of-Care Health Record & Dynamic QR Access System for India's Primary Healthcare Ecosystem." />
+
+  <!-- Pre-paint Theme Script (Prevents flash of white/dark) -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Inter & Regional Indian Scripts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col justify-between transition-colors duration-200">
+  <!-- Top Navigation -->
+  <header class="px-6 py-4 flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-2xl bg-teal-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-teal-600/30">
+        MP
+      </div>
+      <div>
+        <h1 class="text-lg font-black tracking-tight text-[var(--text)]">MediPass</h1>
+        <p class="text-[10px] text-[var(--text-muted)] -mt-1 font-semibold">Consent-Driven Health Access</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle-btn" class="p-2.5 rounded-2xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)] hover:bg-[var(--border)] transition">
+        <i data-lucide="moon" class="w-4 h-4"></i>
+      </button>
+      <a href="/split.html" class="px-3.5 py-2 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-600/30 flex items-center gap-1.5 transition">
+        <span>⚡</span>
+        <span class="hidden sm:inline">Split Screen Demo</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="max-w-4xl mx-auto px-6 py-10 flex-1 flex flex-col items-center text-center justify-center space-y-8">
+    <div class="space-y-4 max-w-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/25 text-xs font-bold">
+        <span>🇮🇳</span>
+        <span>Built for Ayushman Bharat & Primary Health Clinics</span>
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-[var(--text)] leading-tight">
+        Patient-Held, Point-of-Care <br/>
+        <span class="bg-gradient-to-r from-teal-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">Health Records with Dynamic QR</span>
+      </h2>
+      <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
+        Fast camera-scan doctor access in under 3 seconds, instant patient kill-switch revocation, offline-first reliability, emergency break-glass, and a grounded 5-language AI assistant.
+      </p>
+    </div>
+
+    <!-- Dual Role Login Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-xl">
+      <!-- Patient Portal Entrance -->
+      <a href="/patient/login.html" class="group bg-[var(--surface)] hover:bg-[var(--surface-2)] border-2 border-teal-500/40 hover:border-teal-500 rounded-3xl p-6 text-left shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-teal-500/15 text-teal-600 dark:text-teal-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+          👤
+        </div>
+        <h3 class="text-xl font-bold text-[var(--text)] mb-1">I am a Patient</h3>
+        <p class="text-xs text-[var(--text-muted)] mb-4 leading-relaxed">
+          Access your digital health card, generate 45s rolling QR codes, view audit trails, and talk to your AI assistant in Telugu, Hindi, Tamil, or Kannada.
+        </p>
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 group-hover:translate-x-1 transition-transform">
+          Open Patient App &rarr;
+        </span>
+      </a>
+
+      <!-- Doctor Portal Entrance -->
+      <a href="/doctor/login.html" class="group bg-[var(--surface)] hover:bg-[var(--surface-2)] border-2 border-blue-500/40 hover:border-blue-500 rounded-3xl p-6 text-left shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+          👨‍⚕️
+        </div>
+        <h3 class="text-xl font-bold text-[var(--text)] mb-1">I am a Doctor</h3>
+        <p class="text-xs text-[var(--text-muted)] mb-4 leading-relaxed">
+          Scan patient QR codes in &lt; 3s, view scoped allergy records, add digital prescriptions with OCR Snap & Extract, and use Emergency Break-Glass.
+        </p>
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+          Open Clinical Terminal &rarr;
+        </span>
+      </a>
+    </div>
+
+    <!-- Quick Features Strip -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl text-left pt-4">
+      <div class="p-3 bg-[var(--surface)] rounded-2xl border border-[var(--border)]">
+        <span class="text-lg">⚡</span>
+        <h4 class="font-bold text-xs mt-1">Rolling 45s QR</h4>
+        <p class="text-[10px] text-[var(--text-muted)]">Anti-replay & live WebSocket kill-switch.</p>
+      </div>
+      <div class="p-3 bg-[var(--surface)] rounded-2xl border border-[var(--border)]">
+        <span class="text-lg">🤖</span>
+        <h4 class="font-bold text-xs mt-1">MediPass AI</h4>
+        <p class="text-[10px] text-[var(--text-muted)]">Grounded in records, 5 languages, voice TTS.</p>
+      </div>
+      <div class="p-3 bg-[var(--surface)] rounded-2xl border border-[var(--border)]">
+        <span class="text-lg">🚨</span>
+        <h4 class="font-bold text-xs mt-1">Break-Glass</h4>
+        <p class="text-[10px] text-[var(--text-muted)]">60s server-enforced emergency access.</p>
+      </div>
+      <div class="p-3 bg-[var(--surface)] rounded-2xl border border-[var(--border)]">
+        <span class="text-lg">📶</span>
+        <h4 class="font-bold text-xs mt-1">Offline-First</h4>
+        <p class="text-[10px] text-[var(--text-muted)]">IndexedDB queue & background sync.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="px-6 py-4 text-center text-xs text-[var(--text-muted)] border-t border-[var(--border)] bg-[var(--surface)]">
+    MediPass Prototype &bull; Zero External DB Required &bull; Runs on Node.js + Express &bull; Compliant with ABDM & DPDP Principles
+  </footer>
+
+  <script type="module">
+    import { ThemeManager } from '/js/shared/theme.js';
+    import { Icons } from '/js/shared/icons.js';
+
+    Icons.init();
+
+    document.getElementById('theme-toggle-btn')?.addEventListener('click', () => {
+      ThemeManager.toggle();
+      Icons.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MediPass | Doctor Point-of-Care Terminal</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#2563eb" />
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html5-qrcode for Camera QR scanning -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/doctor.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col justify-between select-none">
+  <!-- Top Bar Slot -->
+  <div id="top-bar-slot"></div>
+
+  <!-- Guest Banner Slot -->
+  <div id="guest-banner-slot"></div>
+
+  <!-- Main Content Viewport -->
+  <main id="doctor-view-container" class="flex-1 w-full max-w-lg mx-auto">
+    <!-- Dynamic views render here -->
+  </main>
+
+  <!-- Bottom Navigation Slot -->
+  <div id="bottom-nav-slot"></div>
+
+  <script type="module">
+    import { Api } from '/js/shared/api.js';
+    import { TopBar } from '/js/components/topBar.js';
+    import { BottomNav } from '/js/components/bottomNav.js';
+    import { GuestBanner } from '/js/shared/guestBanner.js';
+    import { Router } from '/js/shared/router.js';
+    import { WsClient } from '/js/shared/ws.js';
+    import { Icons } from '/js/shared/icons.js';
+    import { Toast } from '/js/shared/toast.js';
+
+    // Doctor Views
+    import { DoctorScanner } from '/js/doctor/scanner.js';
+    import { DoctorPatientView } from '/js/doctor/patientView.js';
+    import { DoctorRecent } from '/js/doctor/recent.js';
+    import { BreakGlass } from '/js/doctor/breakGlass.js';
+    import { JohnDoe } from '/js/doctor/johnDoe.js';
+    import { DoctorProfile } from '/js/doctor/profile.js';
+
+    let currentDoctor = null;
+    let isGuest = false;
+
+    async function initDoctorApp() {
+      const token = Api.getAuthToken();
+      if (!token) {
+        window.location.href = '/doctor/login.html';
+        return;
+      }
+
+      try {
+        const res = await Api.get('/api/doctor/me');
+        currentDoctor = res.doctor;
+        isGuest = Boolean(res.isGuest);
+      } catch (err) {
+        console.warn('Failed to load doctor profile, clearing session:', err);
+        Api.clearTokens();
+        window.location.href = '/doctor/login.html';
+        return;
+      }
+
+      // Render Top Bar and Guest Banner
+      document.getElementById('top-bar-slot').innerHTML = TopBar.renderDoctorTopBar(currentDoctor);
+      TopBar.bindEvents();
+      GuestBanner.render('guest-banner-slot');
+
+      // Initialize WebSocket connection
+      WsClient.connect();
+
+      const viewContainer = document.getElementById('doctor-view-container');
+      const bottomNavSlot = document.getElementById('bottom-nav-slot');
+
+      const setTab = (tab) => {
+        bottomNavSlot.innerHTML = BottomNav.renderDoctorNav(tab);
+        Icons.refresh();
+      };
+
+      // Home View
+      Router.register('home', () => {
+        setTab('home');
+        viewContainer.innerHTML = `
+          <div class="px-4 py-4 space-y-4 pb-24">
+            <!-- Large Scan CTA Card -->
+            <div class="bg-gradient-to-tr from-blue-600 via-blue-700 to-indigo-800 text-white rounded-3xl p-6 shadow-xl space-y-3 cursor-pointer transform hover:scale-[1.01] transition" onclick="window.location.hash='#scanner'">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider bg-white/20 px-2.5 py-0.5 rounded-full">Point-of-Care Access</span>
+                <span class="text-xs opacity-80">&lt; 3s Verify</span>
+              </div>
+              <div class="py-2">
+                <h2 class="text-2xl font-black">Scan Patient QR Code</h2>
+                <p class="text-xs text-blue-100 mt-1">Instant camera scan to load patient history, active meds, and allergy alerts.</p>
+              </div>
+              <div class="pt-2 flex items-center justify-between text-xs font-bold">
+                <span class="bg-white text-blue-800 px-4 py-2 rounded-xl shadow-md flex items-center gap-1.5">
+                  <i data-lucide="scan" class="w-4 h-4"></i> Open Scanner
+                </span>
+                <span class="opacity-80">Single-use anti-replay &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Pending Sync & Offline Status Strip -->
+            <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-600 flex items-center justify-center font-bold text-xs">
+                  ✓✓
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs text-[var(--text)]">Offline Queue: Synced</h4>
+                  <p class="text-[10px] text-[var(--text-muted)]">All prescriptions synchronized with cloud</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                Online
+              </span>
+            </div>
+
+            <!-- Quick Actions Grid -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <button onclick="window.location.hash='#emergency'" class="p-4 bg-rose-500/10 border border-rose-500/30 rounded-2xl text-left space-y-1 hover:bg-rose-500/15 transition">
+                <span class="text-2xl">🚨</span>
+                <h4 class="font-bold text-rose-600 dark:text-rose-400">Break-Glass</h4>
+                <p class="text-[10px] text-[var(--text-muted)]">60s emergency override without QR</p>
+              </button>
+
+              <button onclick="window.location.hash='#johndoe'" class="p-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-left space-y-1 hover:bg-[var(--surface-2)] transition">
+                <span class="text-2xl">👤</span>
+                <h4 class="font-bold text-[var(--text)]">John Doe Trauma</h4>
+                <p class="text-[10px] text-[var(--text-muted)]">Unidentified patient chart</p>
+              </button>
+            </div>
+          </div>
+        `;
+        Icons.refresh();
+      });
+
+      // Scanner View
+      Router.register('scanner', () => {
+        setTab('scanner');
+        DoctorScanner.render(viewContainer, (consultationData) => {
+          Router.navigate('patient');
+          setTimeout(() => {
+            DoctorPatientView.render(viewContainer, consultationData, () => {
+              Router.navigate('scanner');
+            });
+          }, 50);
+        });
+      });
+
+      // Recent Patients View
+      Router.register('recent', () => {
+        setTab('recent');
+        DoctorRecent.render(viewContainer);
+      });
+
+      // Emergency Break Glass View
+      Router.register('emergency', () => {
+        setTab('emergency');
+        BreakGlass.render(viewContainer);
+      });
+
+      // John Doe View
+      Router.register('johndoe', () => {
+        setTab('emergency');
+        JohnDoe.render(viewContainer);
+      });
+
+      // Profile View
+      Router.register('profile', () => {
+        setTab('profile');
+        DoctorProfile.render(viewContainer, currentDoctor, isGuest);
+      });
+
+      Router.init('home');
+      Icons.init();
+    }
+
+    initDoctorApp();
+  </script>
+</body>
+</html>

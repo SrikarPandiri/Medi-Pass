@@ -1,0 +1,21 @@
+{
+  "name": "MediPass Healthcare",
+  "short_name": "MediPass",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d9488",
+  "theme_color": "#0d9488",
+  "description": "Patient-Held, Consent-Driven Point-of-Care Health Record & Dynamic QR Access System",
+  "icons": [
+    {
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=MP",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "https://api.dicebear.com/7.x/initials/svg?seed=MP",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

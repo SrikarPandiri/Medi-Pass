@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MediPass | Patient Health Pass & AI Assistant</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
+
+  <!-- Pre-paint Theme & Elderly Mode Script -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+
+      if (localStorage.getItem('medipass_elderly_mode') === 'true') {
+        document.body ? document.body.classList.add('elderly-mode') : document.addEventListener('DOMContentLoaded', () => document.body.classList.add('elderly-mode'));
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS & Lucide via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QRCode.js via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Marked & DOMPurify for AI Chat Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/patient.css" />
+  <link rel="stylesheet" href="/css/chat.css" />
+  <link rel="stylesheet" href="/css/elderly.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col justify-between select-none">
+  <!-- Top App Bar Slot -->
+  <div id="top-bar-slot"></div>
+
+  <!-- Sticky Guest Mode Banner Slot -->
+  <div id="guest-banner-slot"></div>
+
+  <!-- Dynamic Content Slot -->
+  <main id="app-view-container" class="flex-1 w-full max-w-lg mx-auto">
+    <!-- Rendered views go here -->
+  </main>
+
+  <!-- Bottom Navigation Tab Bar Slot -->
+  <div id="bottom-nav-slot"></div>
+
+  <script type="module">
+    import { Api } from '/js/shared/api.js';
+    import { TopBar } from '/js/components/topBar.js';
+    import { BottomNav } from '/js/components/bottomNav.js';
+    import { GuestBanner } from '/js/shared/guestBanner.js';
+    import { Router } from '/js/shared/router.js';
+    import { WsClient } from '/js/shared/ws.js';
+    import { Icons } from '/js/shared/icons.js';
+    import { ConsentManager } from '/js/patient/consent.js';
+    import { QrModal } from '/js/components/qrModal.js';
+    import { Toast } from '/js/shared/toast.js';
+
+    // Views
+    import { PatientHome } from '/js/patient/home.js';
+    import { PatientRecords } from '/js/patient/records.js';
+    import { ChatPage } from '/js/patient/chat/chatPage.js';
+    import { PatientActivity } from '/js/patient/activity.js';
+    import { PatientProfile } from '/js/patient/profile.js';
+
+    let currentUser = null;
+    let isGuest = false;
+
+    async function initApp() {
+      // Check auth
+      const token = Api.getAuthToken();
+      if (!token) {
+        window.location.href = '/patient/login.html';
+        return;
+      }
+
+      try {
+        const data = await Api.get('/api/patient/me');
+        currentUser = data.user;
+        isGuest = Boolean(data.isGuest);
+      } catch (err) {
+        console.warn('Failed to load user profile, clearing session:', err);
+        Api.clearTokens();
+        window.location.href = '/patient/login.html';
+        return;
+      }
+
+      // Initialize UI Slots
+      document.getElementById('top-bar-slot').innerHTML = TopBar.renderPatientTopBar(currentUser);
+      TopBar.bindEvents();
+      GuestBanner.render('guest-banner-slot');
+
+      // Initialize WebSocket connection
+      WsClient.connect();
+
+      // Setup Routes
+      const viewContainer = document.getElementById('app-view-container');
+      const bottomNavSlot = document.getElementById('bottom-nav-slot');
+
+      const setTab = (tab) => {
+        bottomNavSlot.innerHTML = BottomNav.renderPatientNav(tab);
+        Icons.refresh();
+      };
+
+      Router.register('home', () => {
+        setTab('home');
+        PatientHome.render(viewContainer, currentUser, (attachedRecord) => {
+          Router.navigate('chat');
+          setTimeout(() => {
+            ChatPage.render(viewContainer, currentUser, attachedRecord);
+          }, 50);
+        });
+      });
+
+      Router.register('records', () => {
+        setTab('records');
+        PatientRecords.render(viewContainer, (attachedRecord) => {
+          Router.navigate('chat');
+          setTimeout(() => {
+            ChatPage.render(viewContainer, currentUser, attachedRecord);
+          }, 50);
+        });
+      });
+
+      Router.register('qr', () => {
+        // Open Rolling QR Modal
+        QrModal.open(currentUser.user_id);
+        // Retain view on previous or home
+        Router.navigate('home');
+      });
+
+      Router.register('chat', () => {
+        setTab('chat');
+        // Check if AI consent already requested
+        if (currentUser.ai_consent === false && !localStorage.getItem('ai_consent_prompted')) {
+          localStorage.setItem('ai_consent_prompted', 'true');
+          ConsentManager.showAiConsentSheet(currentUser, (granted) => {
+            currentUser.ai_consent = granted;
+            ChatPage.render(viewContainer, currentUser);
+          });
+        } else {
+          ChatPage.render(viewContainer, currentUser);
+        }
+      });
+
+      Router.register('activity', () => {
+        setTab('home');
+        PatientActivity.render(viewContainer);
+      });
+
+      Router.register('profile', () => {
+        setTab('profile');
+        PatientProfile.render(viewContainer, currentUser, isGuest);
+      });
+
+      // Start Router
+      Router.init('home');
+      Icons.init();
+    }
+
+    initApp();
+  </script>
+</body>
+</html>

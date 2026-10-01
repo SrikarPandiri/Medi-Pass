@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Doctor Login | MediPass Clinical Terminal</title>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('medipass_theme_pref') || 'system';
+      const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/css/tokens.css" />
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-600/30">
+          Rx
+        </div>
+        <div>
+          <h1 class="font-extrabold text-lg tracking-tight text-[var(--text)]">Doctor Login</h1>
+          <p class="text-xs text-[var(--text-muted)]">Verified Point-of-Care Terminal</p>
+        </div>
+      </div>
+      <button id="theme-btn" class="p-2 rounded-xl bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)]">
+        <i data-lucide="moon" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Doctor Login Form -->
+    <form id="doctor-login-form" class="space-y-4">
+      <div>
+        <label class="block text-xs font-bold text-[var(--text)] mb-1">State / National Medical License ID</label>
+        <input type="text" id="license-input" placeholder="e.g. TSMC-12345" required class="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-2xl px-4 py-3 text-sm text-[var(--text)] font-mono uppercase outline-none focus:border-blue-500 transition" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[var(--text)] mb-1">Password</label>
+        <input type="password" id="password-input" placeholder="••••••••" required class="w-full bg-[var(--surface-2)] border border-[var(--border)] rounded-2xl px-4 py-3 text-sm text-[var(--text)] outline-none focus:border-blue-500 transition" />
+      </div>
+
+      <button type="submit" id="btn-doctor-login" class="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/30 transition">
+        Log In as Doctor
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="relative flex items-center justify-center">
+      <div class="border-t border-[var(--border)] w-full"></div>
+      <span class="bg-[var(--surface)] px-3 text-[11px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Or Instant Access</span>
+    </div>
+
+    <!-- Prominent "Continue as Guest Doctor" Button -->
+    <button type="button" class="btn-guest-doctor w-full py-3.5 px-4 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border-2 border-blue-500/30 text-blue-800 dark:text-blue-200 transition text-left flex items-center justify-between group">
+      <div>
+        <div class="font-bold text-sm flex items-center gap-1.5">
+          <span>🩺</span>
+          <span>Continue as Guest Doctor</span>
+        </div>
+        <p class="text-[11px] text-[var(--text-muted)]">Explore clinic terminal with pre-seeded demo sandbox</p>
+      </div>
+      <span class="text-xs font-bold group-hover:translate-x-1 transition-transform">&rarr;</span>
+    </button>
+
+    <!-- Collapsible Demo Credentials Card with tap-to-autofill -->
+    <details class="bg-[var(--surface-2)] border border-[var(--border)] rounded-2xl p-3.5 text-xs text-[var(--text)] transition cursor-pointer">
+      <summary class="font-bold select-none text-[var(--text-muted)] flex items-center justify-between">
+        <span>🔑 Doctor Demo Credentials (Tap to Autofill)</span>
+        <span class="text-xs">&darr;</span>
+      </summary>
+      <div class="mt-3 space-y-2 pt-2 border-t border-[var(--border)]">
+        <button type="button" class="btn-autofill-doctor w-full p-2.5 rounded-xl bg-[var(--surface)] border border-[var(--border)] hover:border-blue-500 text-left transition flex items-center justify-between" data-license="TSMC-12345" data-pass="Doctor@123">
+          <div>
+            <p class="font-bold text-xs text-[var(--text)]">Dr. Anita Rao (Sunrise Clinic, Hyderabad)</p>
+            <p class="text-[10px] text-[var(--text-muted)]">License: TSMC-12345 · Pass: Doctor@123</p>
+          </div>
+          <span class="text-[10px] text-blue-600 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md">Fill</span>
+        </button>
+
+        <button type="button" class="btn-autofill-doctor w-full p-2.5 rounded-xl bg-[var(--surface)] border border-[var(--border)] hover:border-blue-500 text-left transition flex items-center justify-between" data-license="APMC-67890" data-pass="Doctor@456">
+          <div>
+            <p class="font-bold text-xs text-[var(--text)]">Dr. Ravi Kumar (District Hospital, Guntur)</p>
+            <p class="text-[10px] text-[var(--text-muted)]">License: APMC-67890 · Pass: Doctor@456</p>
+          </div>
+          <span class="text-[10px] text-blue-600 font-bold bg-blue-500/10 px-2 py-0.5 rounded-md">Fill</span>
+        </button>
+      </div>
+    </details>
+
+    <div class="pt-2 text-center text-xs text-[var(--text-muted)] space-y-1">
+      <p>Are you a patient? <a href="/patient/login.html" class="text-teal-600 dark:text-teal-400 font-bold hover:underline">Patient Login &rarr;</a></p>
+      <p>New clinic practitioner? <a href="/doctor/register.html" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Register Doctor License &rarr;</a></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { DoctorAuth } from '/js/doctor/auth.js';
+    import { ThemeManager } from '/js/shared/theme.js';
+    import { Icons } from '/js/shared/icons.js';
+
+    Icons.init();
+    DoctorAuth.init();
+
+    document.getElementById('theme-btn')?.addEventListener('click', () => {
+      ThemeManager.toggle();
+      Icons.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/**
+ * @file client/css/elderly.css
+ * @description Accessibility & Elderly Mode styles: high-contrast layout,
+ * >=20px typography, 56px+ touch targets, and single-column card flows.
+ */
+
+body.elderly-mode {
+  font-size: 20px !important;
+  line-height: 1.6 !important;
+}
+
+body.elderly-mode button,
+body.elderly-mode .clickable,
+body.elderly-mode input,
+body.elderly-mode select {
+  min-height: 56px !important;
+  font-size: 1.15rem !important;
+}
+
+body.elderly-mode .card,
+body.elderly-mode .record-card,
+body.elderly-mode .snapshot-card {
+  padding: 1.5rem !important;
+  border-width: 2px !important;
+  margin-bottom: 1.25rem !important;
+}
+
+body.elderly-mode .chat-bubble-user,
+body.elderly-mode .chat-bubble-assistant {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  padding: 1.25rem !important;
+}
+
+body.elderly-mode .bottom-tab-item {
+  min-height: 64px !important;
+}
+
+body.elderly-mode .bottom-tab-label {
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+}
+
+/* High Contrast Enforcements in Elderly Mode */
+[data-theme='light'] body.elderly-mode {
+  --text: #000000 !important;
+  --text-muted: #1e293b !important;
+  --border: #475569 !important;
+  --bg: #ffffff !important;
+  --surface: #f8fafc !important;
+}
+
+[data-theme='dark'] body.elderly-mode {
+  --text: #ffffff !important;
+  --text-muted: #e2e8f0 !important;
+  --border: #94a3b8 !important;
+  --bg: #000000 !important;
+  --surface: #111827 !important;
+}
