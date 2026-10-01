@@ -2,6 +2,10 @@
 ### Patient-Held, Consent-Driven Point-of-Care Health Record & Dynamic QR Access System
 *Engineered for India's Primary Healthcare Ecosystem (PHCs, Community Clinics, District Hospitals)*
 
+🌐 **Live Demo:** [https://medipass-xyo6.onrender.com/](https://medipass-xyo6.onrender.com/)
+
+> ⏳ Hosted on Render. Tap **"Continue as Guest"** on either app for instant access, no sign-up needed.
+
 ---
 
 ## 1. Overview
@@ -35,6 +39,14 @@ Patient medical records in India are predominantly fragmented across paper files
 
 ## 4. Setup & Running
 
+### Try it online (no setup)
+- **Live App:** [https://medipass-xyo6.onrender.com/](https://medipass-xyo6.onrender.com/)
+- **Patient Portal:** [https://medipass-xyo6.onrender.com/patient/login.html](https://medipass-xyo6.onrender.com/patient/login.html)
+- **Doctor Portal:** [https://medipass-xyo6.onrender.com/doctor/login.html](https://medipass-xyo6.onrender.com/doctor/login.html)
+- **Side-by-Side Dual Demo Runner:** [https://medipass-xyo6.onrender.com/split.html](https://medipass-xyo6.onrender.com/split.html)
+
+### Run locally
+
 ```bash
 # 1. Clone repository & install dependencies
 npm install
@@ -56,8 +68,10 @@ Server endpoints will be active at:
 
 ## 5. 4-Minute Hackathon Demo Script
 
+> You can follow this script on the [live demo](https://medipass-xyo6.onrender.com/) or locally at `http://localhost:3000`.
+
 ### Minute 0:00 – 1:00 | Instant Evaluation via Guest Mode & Multilingual AI
-1. Open [http://localhost:3000/patient/login.html](http://localhost:3000/patient/login.html).
+1. Open [https://medipass-xyo6.onrender.com/patient/login.html](https://medipass-xyo6.onrender.com/patient/login.html) (or [http://localhost:3000/patient/login.html](http://localhost:3000/patient/login.html)).
 2. Tap the amber card: **"Continue as Guest"** (Zero typing, instant sandbox launch).
 3. Observe the Instagram-style story rings (Blood Group B+, Allergies, Medicines) and health snapshot sparkline cards.
 4. Tap the **Ask AI (Sparkle)** tab in the bottom bar.
